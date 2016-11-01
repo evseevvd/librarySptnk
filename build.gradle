@@ -1,1 +1,68 @@
-apply plugin: 'idea'
+version = '1.0'
+
+ext {
+    hibernate_version = '5.1.0.Final'
+    jpa_hibernate_version = '1.0.0.Final'
+    javaee_version = '7.0'
+    dozer_version = '5.5.1'
+    json_version = '20160212'
+    h2_version = '1.4.191'
+    junit_version = '4.12'
+    mockito_version = '1.9.5'
+    validator_version = '1.1.0.Final'
+    dom4j_version = '1.6.1'
+}
+
+repositories {
+    mavenCentral();
+}
+
+configurations { providedCompile }
+
+dependencies {}
+
+
+allprojects {
+    repositories {
+        mavenCentral();
+    }
+
+}
+
+//Сервис
+def servicePattern = ':service-impl:[\\w\\-]+-service';
+def intBusPattern = ':service-impl:int\\-bus\\-[\\w\\-]+-service';
+def serviceImplPattern = ':service-impl:[\\w\\-]+-service:[\\w\\-]+-service-impl';
+def apiPattern = ':service-api:[\\w\\-]+-service-api';
+def restPattern = ':web:rest:[\\w\\-]+-rest';
+
+/**
+ * Структура проекта
+ *
+ *  - АПИ (jar include DTO Interfaces)
+ *         - Service layout
+ *         - Bisness layout
+ *  - Имплементация (ear include jar)
+ *          - Service layout
+ *          - Bisness layout
+ *  - Рест (war)
+ */
+
+configure(subprojects.findAll() {it.path.matches(servicePattern)}) {
+    apply plugin: 'ear'
+
+    ear{
+        archiveName=baseName+'-ear.ear'
+    }
+}
+
+configure(subprojects.findAll() {it.path.matches(apiPattern) || it.path.matches(serviceImplPattern)}) {
+    apply plugin: 'java'
+
+    configurations { providedCompile }
+}
+
+configure(subprojects.findAll() {it.path.matches(restPattern)}) {
+    apply plugin: 'java'
+    apply plugin: 'war'
+}

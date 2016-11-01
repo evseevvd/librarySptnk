@@ -1,0 +1,2 @@
+include ":service-api:spt-service-api",
+        ":service-impl:spt-service:spt-service-impl"
