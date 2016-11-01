@@ -12,7 +12,7 @@ import javax.persistence.metamodel.StaticMetamodel;
  */
 @StaticMetamodel(Book.class)
 public class Book_ {
-    public static volatile SingularAttribute<Book, String> name;
-    public static volatile SingularAttribute<Book, String> athor;
-    public static volatile SingularAttribute<Book, Date> date;
+    public static volatile SingularAttribute<Book, String> NAME;
+    public static volatile SingularAttribute<Book, String> ATHOR;
+    public static volatile SingularAttribute<Book, Date> DATE;
 }

@@ -13,11 +13,11 @@ import co.sptnk.service.api.dto.response.FindResponse;
  */
 public interface LibraryService {
 
-    AddOrUpdateResponse addOrUpdateBook(BookDto bookDto);
+    AddOrUpdateResponse addOrUpdateBook(BookDto bookDto) throws IllegalAccessException, InstantiationException;
 
-    DeleteResponse deleteBook(BookDto bookDto);
+    void deleteBook(BookDto bookDto) throws IllegalAccessException, InstantiationException;
 
-    FindResponse getBook(String id);
+    FindResponse getBook(String id) throws IllegalAccessException, InstantiationException;
 
     FindResponse findBooks(SearchCriteriaBook criteria);
 }
