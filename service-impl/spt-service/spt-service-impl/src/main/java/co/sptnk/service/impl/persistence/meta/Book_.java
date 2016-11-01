@@ -1,5 +1,6 @@
-package co.sptnk.service.impl.persistence.model;
+package co.sptnk.service.impl.persistence.meta;
 
+import co.sptnk.service.impl.persistence.model.Book;
 import java.util.Date;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;

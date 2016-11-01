@@ -1,6 +1,6 @@
 package co.sptnk.service.impl.persistence.model;
 
-import co.sptnk.service.impl.listener.PrePersistBook;
+import co.sptnk.service.impl.persistence.listener.PrePersistBook;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
