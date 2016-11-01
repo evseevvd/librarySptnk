@@ -1,0 +1,16 @@
+dependencies {
+    compile(project(":service-api:spt-service-api"))
+
+    providedCompile("org.hibernate:hibernate-core:${hibernate_version}")
+    providedCompile("org.hibernate:hibernate-entitymanager:${hibernate_version}")
+    providedCompile("org.hibernate:hibernate-validator:${hibernate_version}")
+    providedCompile("dom4j:dom4j:${dom4j_version}")
+    compile("javax.validation:validation-api:${validator_version}")
+    compile("javax:javaee-api:${javaee_version}")
+    compile "net.sf.dozer:dozer:${dozer_version}"
+
+    testCompile("com.h2database:h2:${h2_version}")
+    testCompile("org.hibernate:hibernate-entitymanager:${hibernate_version}")
+    testCompile("junit:junit:${junit_version}")
+    testCompile("org.mockito:mockito-all:${mockito_version}")
+}
