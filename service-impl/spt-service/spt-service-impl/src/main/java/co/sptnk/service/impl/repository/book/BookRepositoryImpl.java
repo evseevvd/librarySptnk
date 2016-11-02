@@ -46,6 +46,10 @@ public class BookRepositoryImpl extends RepositoryImpl<Book> implements BookRepo
             predicates.add(criteriaBuilder.equal(bookRoot.get("date"), criteria.getDate()));
         }
 
+        if (criteria.getClose() != null) {
+            predicates.add(criteriaBuilder.equal(bookRoot.get("isClose"), criteria.getClose()));
+        }
+
         CriteriaQuery<Book> bookCriteriaQuery = query.where(predicates.toArray(new Predicate[predicates.size()]));
 
         List<Book> resultList = entityManager.createQuery(bookCriteriaQuery).getResultList();

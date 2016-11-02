@@ -1,0 +1,11 @@
+{
+  "name": "libBook",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git"
+  },
+  "license": "(MIT OR Apache-2.0)",
+  "devDependencies": {
+    "bower": "^1.7.9"
+  }
+}

@@ -1,34 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://java.sun.com/jsf/html" xmlns="http://java.sun.com/jsf/html">
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          rel="stylesheet">
+    <script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="vendor/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="vendor/moment/locale/ru.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <script src="app/js/app.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="app/css/main.css" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Библиотека книг 1.0</title>
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-10 col-sm-10 col-md-10">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Название</th>
-                        <th>Автор</th>
-                        <th>Дата</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Открытый каталог</a></li>
+                <li><a href="#">Закрытый каталог</a></li>
+                <button class="btn btn-success navbar-btn" type="button" data-toggle="modal" data-target="#addDlg">Добавить</button>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-10 col-sm-10 col-md-10">
+                <table id="books" class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Название</th>
+                            <th>Автор</th>
+                            <th>Дата</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
 
-                    </tr>
-                </tbody>
-            </table>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+
+    <!-- Окошко для добавления -->
+    <div id="addDlg" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Добавление книги</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <div class="col-xs-offset-1 col-xs-10">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="id-name">Название</span>
+                                <input id="name" type="text" class="form-control" placeholder="введите название" aria-describedby="id-name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-xs-offset-1 col-xs-10">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="id-athor">Автор</span>
+                                <input id="athor" type="text" class="form-control" placeholder="введите ФИО" aria-describedby="id-athor">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-xs-offset-1 col-xs-10">
+                            <div class='input-group date' id='datetimepicker2'>
+                                <span class="input-group-addon" id="id-date">Дата издания</span>
+                                <input type='text' class="form-control" placeholder="выберите дату" aria-describedby="id-date"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="input-group">
+                        <span class="input-group-addon" id="id-name">Название</span>
+                        <input id="name" type="text" class="form-control" placeholder="введите название" aria-describedby="id-name">
+                    </div>-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button onclick="addBook()" type="button" class="btn btn-success" data-dismiss="modal">Сохранить</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </body>
 </html>

@@ -41,7 +41,7 @@ public class LibraryServiceImpl implements LibraryService {
         AddOrUpdateResponse response = new AddOrUpdateResponse();
         if (bookDto != null) {
             Book book = mapping.entityToDto(bookDto);
-            if (book.getId().isEmpty()) {
+            if (book.getId() == null) {
                 bookRepository.create(book);
             } else {
                 bookRepository.update(book);
