@@ -10,6 +10,7 @@ import co.sptnk.service.impl.persistence.model.Book;
 import co.sptnk.service.impl.repository.book.BookRepository;
 import org.apache.commons.collections.CollectionUtils;
 
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -24,12 +25,13 @@ import java.util.List;
  *
  * Имплементация сервиса
  */
-@Stateless
+@Remote
+@Stateless(name = "LibraryService")
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class LibraryServiceImpl implements LibraryService {
 
     @Inject
-    private BookRepository repository;
+    private BookRepository bookRepository;
 
     @Inject
     private BookMapping mapping;
@@ -41,9 +43,9 @@ public class LibraryServiceImpl implements LibraryService {
         }
         Book book = mapping.entityToDto(bookDto);
         if (book.getId().isEmpty()) {
-            repository.create(book);
+            bookRepository.create(book);
         } else {
-            repository.update(book);
+            bookRepository.update(book);
         }
         return new AddOrUpdateResponse();
     }
@@ -51,12 +53,15 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public void deleteBook(BookDto bookDto) throws IllegalAccessException, InstantiationException {
         Book book = mapping.entityToDto(bookDto);
-        repository.remove(book);
+        bookRepository.remove(book);
     }
 
     @Override
     public FindResponse getBook(String id) throws IllegalAccessException, InstantiationException {
-        Book book = repository.read(id);
+        Book book = bookRepository.read(id);
+        if (book == null) {
+            throw new NotFoundException("книга не найдена");
+        }
         FindResponse response = new FindResponse();
         response.setBooks(Arrays.asList(mapping.dtoToEntity(book)));
         return response;
@@ -66,7 +71,7 @@ public class LibraryServiceImpl implements LibraryService {
     public FindResponse findBooks(SearchCriteriaBook criteria) throws IllegalAccessException, InstantiationException {
         FindResponse response = new FindResponse();
 
-        List<Book> books = repository.searchByCriteria(criteria);
+        List<Book> books = bookRepository.searchByCriteria(criteria);
 
         if(!CollectionUtils.isEmpty(books)) {
             List<BookDto> bookDtos = new ArrayList<>();

@@ -1,9 +1,6 @@
 package co.sptnk.service.impl.repository.book;
 
-import co.sptnk.service.api.dto.BookDto;
 import co.sptnk.service.api.dto.criteria.SearchCriteriaBook;
-import co.sptnk.service.api.dto.response.FindResponse;
-import co.sptnk.service.impl.persistence.meta.Book_;
 import co.sptnk.service.impl.persistence.model.BaseEntity;
 import co.sptnk.service.impl.persistence.model.Book;
 import co.sptnk.service.impl.repository.RepositoryImpl;
@@ -12,13 +9,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
 import java.util.ArrayList;
 import java.util.List;
-
-import static co.sptnk.service.impl.persistence.meta.Book_.*;
-import static co.sptnk.service.impl.persistence.meta.Book_.athor;
-import static co.sptnk.service.impl.persistence.meta.Book_.name;
 
 /**
  * Created by evseevvd on 02.11.16.

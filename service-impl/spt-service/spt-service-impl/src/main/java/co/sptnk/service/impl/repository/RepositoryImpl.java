@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * Created by evseevvd on 02.11.16.
  */
-public class RepositoryImpl<E extends BaseEntity> implements Repository<E> {
+public abstract class RepositoryImpl<E extends BaseEntity> implements Repository<E> {
 
     private final Class<E> entityClass;
 

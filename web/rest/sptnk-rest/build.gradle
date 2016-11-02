@@ -1,0 +1,5 @@
+dependencies {
+    compile(project(":service-api:spt-service-api"))
+    compile("org.json:json:${json_version}")
+    compile("javax:javaee-api:${javaee_version}")
+}

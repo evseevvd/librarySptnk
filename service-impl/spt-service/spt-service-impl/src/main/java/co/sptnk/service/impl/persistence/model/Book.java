@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "BOOKS", schema = "LIBSM")
+@Table(name = "BOOKS")
 @EntityListeners({PrePersistBook.class})
 public class Book extends BaseEntity{
 

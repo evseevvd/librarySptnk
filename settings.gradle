@@ -1,2 +1,3 @@
 include ":service-api:spt-service-api",
-        ":service-impl:spt-service:spt-service-impl"
+        ":service-impl:spt-service:spt-service-impl",
+        ":web:rest:sptnk-rest"
