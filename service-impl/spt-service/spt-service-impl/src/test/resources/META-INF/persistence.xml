@@ -3,6 +3,7 @@
     <persistence-unit name="LibTestPU" transaction-type="RESOURCE_LOCAL">
 
         <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
+        <class>co.sptnk.service.impl.persistence.model.Book</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />

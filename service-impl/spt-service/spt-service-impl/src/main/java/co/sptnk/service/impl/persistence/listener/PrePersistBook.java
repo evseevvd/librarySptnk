@@ -13,7 +13,7 @@ public class PrePersistBook {
 
     @PrePersist
     public void generatedId(Book book) {
-        if (book.getId().isEmpty()) {
+        if (book.getId() == null) {
             book.setId(UUID.randomUUID().toString());
         }
     }
