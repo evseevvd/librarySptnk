@@ -2,4 +2,6 @@ dependencies {
     compile(project(":service-api:spt-service-api"))
     compile("org.json:json:${json_version}")
     compile("javax:javaee-api:${javaee_version}")
+    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
+
 }

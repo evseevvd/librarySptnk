@@ -11,10 +11,16 @@ $(function(){
     });
 });
 function addBook() {
+
+    var name = $('#name').val();
+    var athor = $('#athor').val();
+    var date = $('#date').val();
+
+
     var book = {
-        name: "John",
-        athor: "Boston",
-        date:"2016-10-01",
+        name: name,
+        athor: athor,
+        date: date,
         close:"true"
     };
 
@@ -22,7 +28,12 @@ function addBook() {
             method: "POST",
             url: "rest/api/libserv/add",
             data: JSON.stringify(book),
-            success: getData()
+            success: function() {
+                name = null;
+                athor = null;
+                date = null;
+                getData();
+            }
         });
 }
 
@@ -32,8 +43,6 @@ function getData() {
     var criteria = {
         close: true
     };
-
-    var result = [];
 
     $.ajax({
             method: 'POST',
