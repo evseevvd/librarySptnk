@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "BOOKS", schema = "LIBSM")
 @EntityListeners({PrePersistBook.class})
-public class Book {
+public class Book extends BaseEntity{
 
     /**
      * Код книги

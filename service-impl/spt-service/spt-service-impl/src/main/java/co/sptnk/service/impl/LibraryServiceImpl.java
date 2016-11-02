@@ -73,7 +73,7 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public FindResponse findBooks(SearchCriteriaBook criteria) {
+    public FindResponse findBooks(SearchCriteriaBook criteria) throws IllegalAccessException, InstantiationException {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Book> query = criteriaBuilder.createQuery(Book.class);
         Root<Book> bookRoot = query.from(Book.class);
@@ -92,6 +92,16 @@ public class LibraryServiceImpl implements LibraryService {
             predicates.add(criteriaBuilder.equal(bookRoot.get(Book_.DATE), criteria.getDate()));
         }
 
-        return null;
+        CriteriaQuery<Book> bookCriteriaQuery = query.where(predicates.toArray(new Predicate[predicates.size()]));
+
+        List<Book> resultList = em.createQuery(bookCriteriaQuery).getResultList();
+        List<BookDto> bookDtos = new ArrayList<>();
+
+        for (Book book: resultList) {
+            bookDtos.add(mapping.dtoToEntity(book));
+        }
+        FindResponse response = new FindResponse();
+        response.setBooks(bookDtos);
+        return response;
     }
 }

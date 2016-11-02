@@ -19,5 +19,5 @@ public interface LibraryService {
 
     FindResponse getBook(String id) throws IllegalAccessException, InstantiationException;
 
-    FindResponse findBooks(SearchCriteriaBook criteria);
+    FindResponse findBooks(SearchCriteriaBook criteria) throws IllegalAccessException, InstantiationException;
 }
