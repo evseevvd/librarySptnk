@@ -1,0 +1,5 @@
+INSERT INTO BOOKS VALUE ("b00173c4-824e-40e4-860d-298d539d8c96", "У. Гонсалвес",  "2016-10-01", TRUE, "Книга по программированию")
+INSERT INTO BOOKS VALUE ("d78e5cbb-8262-4880-806a-b010ec5500e3", "Э. Борзой",  "2016-10-01", TRUE, "Книга по литературе")
+INSERT INTO BOOKS VALUE ("3c4540a0-81ae-49b7-9698-2708fb80672c", "А. Укенрт",  "2016-10-01", TRUE, "Книга по математике")
+INSERT INTO BOOKS VALUE ("ce58eb6d-7c98-4935-9c70-ef17e8d7ce21", "Э. Миронг",  "2016-10-01", TRUE, "Книга по кулинарии")
+INSERT INTO BOOKS VALUE ("9ae5ae3b-e1cb-407e-9e6b-3567d6ca8444", "Я. Смапрт",  "2016-10-01", TRUE, "Книга по радиотехнике")

@@ -7,10 +7,13 @@
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:ttjdb;MODE=MySql;INIT=CREATE SCHEMA IF NOT EXISTS LIBSM" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:LIBSM;MODE=MySql;INIT=CREATE SCHEMA IF NOT EXISTS LIBSM" />
             <property name="javax.persistence.jdbc.user" value="sa" />
             <property name="javax.persistence.jdbc.password" value="" />
             <property name="javax.persistence.jdbc.schema" value="LIBSM" />
+            <property name="javax.persistence.schema-generation-action" value="drop-and-create" />
+            <property name="javax.persistence.schema-generation.create-source" value="metadata-then-script" />
+            <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/insert.sql"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
             <property name="hibernate.hbm2ddl.auto" value="create" />
             <property name="hibernate.show_sql" value="true" />

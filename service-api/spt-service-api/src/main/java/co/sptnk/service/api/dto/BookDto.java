@@ -1,5 +1,6 @@
 package co.sptnk.service.api.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  *
  * ДТО Книга
  */
-public class BookDto {
+public class BookDto implements Serializable {
 
     /**
      * Код книги

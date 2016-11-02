@@ -6,6 +6,7 @@ import co.sptnk.service.api.dto.criteria.SearchCriteriaBook;
 import co.sptnk.service.api.dto.response.AddOrUpdateResponse;
 import co.sptnk.service.api.dto.response.FindResponse;
 
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -19,12 +20,12 @@ import javax.ws.rs.core.Response;
  *
  * рест для библиотеки.
  */
-@Path("/lib")
+@Path("/libserv")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NEVER)
-public class LibServiceRest {
+public class LibServiceRest implements Serializable{
 
     @EJB(lookup = "ejb:spt-service-ear/spt-service-impl/LibraryService!co.sptnk.service.api.LibraryService")
     private LibraryService libraryService;
@@ -73,8 +74,6 @@ public class LibServiceRest {
             return Response.serverError().entity(e.getMessage()).build();
         } catch (InstantiationException e) {
             return Response.serverError().entity(e.getMessage()).build();
-        } catch (NotFoundException e) {
-            return Response.status(404).entity(e.getMessage()).build();
         }
     }
 

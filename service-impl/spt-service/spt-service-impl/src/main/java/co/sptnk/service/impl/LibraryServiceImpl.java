@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Created by Владимир on 01.11.2016.
- *
+ * <p/>
  * Имплементация сервиса
  */
 @Remote
@@ -38,16 +38,16 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public AddOrUpdateResponse addOrUpdateBook(BookDto bookDto) throws IllegalAccessException, InstantiationException {
-        if (bookDto == null) {
-            throw new NotFoundException();
+        AddOrUpdateResponse response = new AddOrUpdateResponse();
+        if (bookDto != null) {
+            Book book = mapping.entityToDto(bookDto);
+            if (book.getId().isEmpty()) {
+                bookRepository.create(book);
+            } else {
+                bookRepository.update(book);
+            }
         }
-        Book book = mapping.entityToDto(bookDto);
-        if (book.getId().isEmpty()) {
-            bookRepository.create(book);
-        } else {
-            bookRepository.update(book);
-        }
-        return new AddOrUpdateResponse();
+        return response;
     }
 
     @Override
@@ -59,11 +59,11 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public FindResponse getBook(String id) throws IllegalAccessException, InstantiationException {
         Book book = bookRepository.read(id);
-        if (book == null) {
-            throw new NotFoundException("книга не найдена");
-        }
         FindResponse response = new FindResponse();
-        response.setBooks(Arrays.asList(mapping.dtoToEntity(book)));
+        if (book != null) {
+            response = new FindResponse();
+            response.setBooks(Arrays.asList(mapping.dtoToEntity(book)));
+        }
         return response;
     }
 
@@ -73,7 +73,7 @@ public class LibraryServiceImpl implements LibraryService {
 
         List<Book> books = bookRepository.searchByCriteria(criteria);
 
-        if(!CollectionUtils.isEmpty(books)) {
+        if (!CollectionUtils.isEmpty(books)) {
             List<BookDto> bookDtos = new ArrayList<>();
 
             for (Book book : books) {
