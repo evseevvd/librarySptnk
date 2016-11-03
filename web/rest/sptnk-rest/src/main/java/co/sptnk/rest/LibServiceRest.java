@@ -56,7 +56,7 @@ public class LibServiceRest implements Serializable{
         bookDto.setId(id);
         try {
             libraryService.deleteBook(bookDto);
-            return Response.ok().build();
+            return Response.ok().entity("Book deleted "+id).build();
         } catch (IllegalAccessException e) {
             return Response.serverError().entity(e.getMessage()).build();
         } catch (InstantiationException e) {

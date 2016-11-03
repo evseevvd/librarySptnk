@@ -17,7 +17,7 @@
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <ul class="nav navbar-nav">
-                <li id="openCatalog"><a href="#">Открытый каталог</a></li>
+                <li class="active" id="openCatalog"><a href="#">Открытый каталог</a></li>
                 <li id="closeCatalog"><a href="#">Закрытый каталог</a></li>
                 <button class="btn btn-success navbar-btn" type="button" data-toggle="modal" data-target="#addDlg">Добавить</button>
             </ul>
@@ -38,7 +38,6 @@
                     </thead>
                     <tbody>
                         <tr>
-
                         </tr>
                     </tbody>
                 </table>
@@ -49,62 +48,66 @@
     <!-- Окошко для добавления -->
     <div id="addDlg" class="modal fade" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Добавление книги</h4>
+            <form>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Добавление книги</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row form-group">
+                            <div class="col-xs-offset-1 col-xs-10">
+                                <div class="input-group">
+                                    <input id="id" type="hidden" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-offset-1 col-xs-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="id-name">Название</span>
+                                    <input id="name" type="text" class="form-control" required="required" placeholder="введите название" aria-describedby="id-name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-offset-1 col-xs-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="id-athor">Автор</span>
+                                    <input id="athor" type="text" class="form-control" required="required" placeholder="введите ФИО" aria-describedby="id-athor">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-offset-1 col-xs-10">
+                                <div class='input-group date' id='datetimepicker2'>
+                                    <span class="input-group-addon" id="id-date">Дата издания</span>
+                                    <input id="date" type='text' class="form-control" required="required" placeholder="выберите дату" aria-describedby="id-date"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-offset-1 col-xs-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="id-catalog">Каталог</span>
+                                    <select id="catalog" class="form-control" placeholder="выберете каталог" required="required" aria-describedby="id-catalog">
+                                        <option></option>
+                                        <option value="1">Закрытый</option>
+                                        <option value="0">Открытый</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        <button onclick="_addBook()" type="button" class="btn btn-success" data-dismiss="modal">Сохранить</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <div class="row form-group">
-                        <div class="col-xs-offset-1 col-xs-10">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="id-name">Название</span>
-                                <input id="name" type="text" class="form-control" placeholder="введите название" aria-describedby="id-name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-xs-offset-1 col-xs-10">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="id-athor">Автор</span>
-                                <input id="athor" type="text" class="form-control" placeholder="введите ФИО" aria-describedby="id-athor">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-xs-offset-1 col-xs-10">
-                            <div class='input-group date' id='datetimepicker2'>
-                                <span class="input-group-addon" id="id-date">Дата издания</span>
-                                <input id="date" type='text' class="form-control" placeholder="выберите дату" aria-describedby="id-date"/>
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-xs-offset-1 col-xs-10">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="id-catalog">Каталог</span>
-                                <select id="catalog" class="form-control" placeholder="выберете каталог" aria-describedby="id-catalog">
-                                    <option></option>
-                                    <option value="true">Закрытый</option>
-                                    <option value="false">Открытый</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <!--<div class="input-group">
-                        <span class="input-group-addon" id="id-name">Название</span>
-                        <input id="name" type="text" class="form-control" placeholder="введите название" aria-describedby="id-name">
-                    </div>-->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <button onclick="addBook()" type="button" class="btn btn-success" data-dismiss="modal">Сохранить</button>
-                </div>
-            </div>
-
+            </form>
         </div>
     </div>
 </body>

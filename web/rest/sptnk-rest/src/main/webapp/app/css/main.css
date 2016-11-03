@@ -9,3 +9,17 @@ th {
 td {
     text-align: center;
 }
+
+.edit-btn {
+    color: #2485fc;
+    font-size: 18px;
+}
+
+.del-btn {
+    color: red;
+    font-size: 18px;
+}
+
+.margin-5 {
+    margin: 5px;
+}

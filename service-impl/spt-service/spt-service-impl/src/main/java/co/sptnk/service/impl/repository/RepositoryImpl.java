@@ -39,7 +39,9 @@ public abstract class RepositoryImpl<E extends BaseEntity> implements Repository
 
     @Override
     public void remove(E entity) {
-        entityManager.remove(entity);
+        //иначе будет пытаться удалить неприатаченную сущность
+        E forDelete = entityManager.contains(entity) ? entity : entityManager.merge(entity);
+        entityManager.remove(forDelete);
     }
 
     @Override

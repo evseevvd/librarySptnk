@@ -13,13 +13,6 @@ $(function(){
         $('#closeCatalog').click(function () {
             getCatalog(true);
         });
-        $('#editBook').ready(function () {
-            $(this).click(function () {
-                var id = $(this).find($('a')).attr('id');
-                _getBook(id);
-                console.log('Щелк редактировать');
-            });
-        });
 
         getCatalog(false);
     });
@@ -30,14 +23,16 @@ function _clearFields() {
     $('#date').val("");
     $('#catalog').val("");
 }
-function addBook() {
+function _addBook() {
 
+    var id = $('#id').val();
     var name = $('#name').val();
     var athor = $('#athor').val();
     var date = $('#date').val();
-    var catalog = $('#catalog').val();
+    var catalog = $('#catalog').val() == 1;
 
     var book = {
+        id: id ? id : null,
         name: name,
         athor: athor,
         date: date,
@@ -66,12 +61,38 @@ function _getBook(id) {
     $.ajax({
         method: "GET",
         url: "rest/api/libserv/get/"+id,
-        success: function () {
-            defer.resolve();
+        success: function (_response) {
+            defer.resolve(_response.books);
         }
     });
-    $.when(defer).then(function (_response) {
-        console.log(_response);
+    $.when(defer).then(function (data) {
+        console.log(data);
+        var isClose = data[0].close && data[0].close != "false" ? 1 : 0;
+
+        $('#id').val(data[0].id);
+        $('#name').val(data[0].name);
+        $('#athor').val(data[0].athor);
+        $('#date').val(data[0].date);
+        $('#catalog').val(isClose);
+
+        $('#addDlg').modal('show');
+    })
+}
+
+function _delBook(id, catalog) {
+    var defer = $.Deferred();
+
+    $.ajax({
+        method: "DELETE",
+        url: "rest/api/libserv/remove/"+id,
+        dataType : 'text',
+        success: function (_response) {
+            defer.resolve(_response);
+        }
+    });
+    $.when(defer).then(function (data) {
+        console.log(data);
+        getCatalog(catalog);
     })
 }
 
@@ -81,6 +102,18 @@ function getCatalog(isClose) {
     var criteria = {
         close: isClose
     };
+
+    var tbody = $('#books > tbody');
+
+    var close = isClose && isClose != "false";
+
+    if (close) {
+        $('#openCatalog').removeClass('active');
+        $('#closeCatalog').addClass('active');
+    } else {
+        $('#closeCatalog').removeClass('active');
+        $('#openCatalog').addClass('active');
+    }
 
     $.ajax({
             method: 'POST',
@@ -92,21 +125,46 @@ function getCatalog(isClose) {
         });
 
     $.when(defer).then(function(data) {
-        $('#books > tbody').empty();
+        tbody.empty();
+
         if (data.books.length > 0) {
+
             data.books.forEach(function (item, i) {
                 var index = i+1;
-                $('#books > tbody')
-                    .append('<tr>')
-                    .append('<td>' + index + '</td>')
-                    .append('<td>' + item.name + '</td>')
-                    .append('<td>' + item.athor + '</td>')
-                    .append('<td>' + item.date + '</td>')
-                    .append('<td id="editBook"><a  href="#" id='+item.id+'><p class="glyphicon glyphicon-pencil"></p></a></td>')
-                    .append('</tr>')
-                ;
+
+                var row = $('<tr/>');
+
+                var editBtn = $('<a/>');
+                editBtn.addClass('glyphicon');
+                editBtn.addClass('glyphicon-pencil');
+                editBtn.addClass('edit-btn');
+                editBtn.addClass('margin-5');
+                editBtn.click(function () {
+                    _getBook(item.id);
+                });
+
+                var delBtn = $('<a/>');
+                delBtn.addClass('glyphicon');
+                delBtn.addClass('glyphicon-remove');
+                delBtn.addClass('del-btn');
+                delBtn.addClass('margin-5');
+                delBtn.click(function () {
+                    _delBook(item.id, item.close);
+                });
+
+                var btnRow = $('<td/>');
+
+                btnRow.append(editBtn).append(delBtn);
+
+                row.append( $('<td/>').text(index))
+                    .append($('<td/>').text(item.name))
+                    .append($('<td/>').text(item.athor))
+                    .append($('<td/>').text(item.date))
+                    .append(btnRow);
+                tbody.append(row);
             });
         }
+
     });
 }
 
