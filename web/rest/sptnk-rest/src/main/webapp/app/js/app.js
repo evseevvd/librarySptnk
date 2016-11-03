@@ -7,41 +7,58 @@ $(function(){
             locale: 'ru',
             format: 'DD.MM.YYYY'
         });
-        getData();
+        $('#openCatalog').click(function () {
+            getCatalog(false);
+        });
+        $('#closeCatalog').click(function () {
+            getCatalog(true);
+        });
+        getCatalog(false);
     });
 });
+function _clearFields() {
+    $('#name').val("");
+    $('#athor').val("");
+    $('#date').val("");
+    $('#catalog').val("");
+}
 function addBook() {
 
     var name = $('#name').val();
     var athor = $('#athor').val();
     var date = $('#date').val();
+    var catalog = $('#catalog').val();
 
+    // var formatedDate = moment(date, "YYYY-MM-DD").format("YYYY-MM-DD");
 
     var book = {
         name: name,
         athor: athor,
         date: date,
-        close:"true"
+        close: catalog
     };
+
+    var defer = $.Deferred();
 
     $.ajax({
             method: "POST",
             url: "rest/api/libserv/add",
             data: JSON.stringify(book),
-            success: function() {
-                name = null;
-                athor = null;
-                date = null;
-                getData();
+            success: function () {
+                defer.resolve();
             }
         });
+    $.when(defer).then(function () {
+        getCatalog(catalog);
+        _clearFields();
+    })
 }
 
-function getData() {
+function getCatalog(isClose) {
 
     var defer = $.Deferred();
     var criteria = {
-        close: true
+        close: isClose
     };
 
     $.ajax({
@@ -62,6 +79,7 @@ function getData() {
                 .append('<td>'+item.name+'</td>')
                 .append('<td>'+item.athor+'</td>')
                 .append('<td>'+item.date+'</td>')
+                .append('<td><p id="editBook" class="glyphicon glyphicon-pencil"></p></td>')
                 .append('</tr>')
             ;
         });

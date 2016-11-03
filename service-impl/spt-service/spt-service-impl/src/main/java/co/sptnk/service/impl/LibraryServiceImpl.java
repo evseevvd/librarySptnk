@@ -42,9 +42,11 @@ public class LibraryServiceImpl implements LibraryService {
         if (bookDto != null) {
             Book book = mapping.entityToDto(bookDto);
             if (book.getId() == null) {
-                bookRepository.create(book);
+                Book created = bookRepository.create(book);
+                response.setBook(mapping.dtoToEntity(created));
             } else {
-                bookRepository.update(book);
+                Book updated = bookRepository.update(book);
+                response.setBook(mapping.dtoToEntity(updated));
             }
         }
         return response;

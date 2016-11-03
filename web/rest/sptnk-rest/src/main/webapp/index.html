@@ -17,8 +17,8 @@
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <ul class="nav navbar-nav">
-                <li><a href="#">Открытый каталог</a></li>
-                <li><a href="#">Закрытый каталог</a></li>
+                <li id="openCatalog"><a href="#">Открытый каталог</a></li>
+                <li id="closeCatalog"><a href="#">Закрытый каталог</a></li>
                 <button class="btn btn-success navbar-btn" type="button" data-toggle="modal" data-target="#addDlg">Добавить</button>
             </ul>
         </div>
@@ -29,10 +29,10 @@
                 <table id="books" class="table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Название</th>
-                            <th>Автор</th>
-                            <th>Дата</th>
+                            <th class="col-sm-1">#</th>
+                            <th class="col-sm-6">Название</th>
+                            <th class="col-sm-3">Автор</th>
+                            <th class="col-sm-2">Дата</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,6 +78,18 @@
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-xs-offset-1 col-xs-10">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="id-catalog">Каталог</span>
+                                <select id="catalog" class="form-control" placeholder="выберете каталог" aria-describedby="id-catalog">
+                                    <option></option>
+                                    <option value="true">Закрытый</option>
+                                    <option value="false">Открытый</option>
+                                </select>
                             </div>
                         </div>
                     </div>

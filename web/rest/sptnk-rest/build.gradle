@@ -3,5 +3,5 @@ dependencies {
     compile("org.json:json:${json_version}")
     compile("javax:javaee-api:${javaee_version}")
     compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
-
+    compile group: 'org.jboss.resteasy', name: 'resteasy-jackson-provider', version: '3.0.19.Final'
 }
