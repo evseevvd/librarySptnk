@@ -15,6 +15,8 @@ $(function(){
         });
         $('#editBook').ready(function () {
             $(this).click(function () {
+                var id = $(this).find($('a')).attr('id');
+                _getBook(id);
                 console.log('Щелк редактировать');
             });
         });
@@ -34,8 +36,6 @@ function addBook() {
     var athor = $('#athor').val();
     var date = $('#date').val();
     var catalog = $('#catalog').val();
-
-    // var formatedDate = moment(date, "YYYY-MM-DD").format("YYYY-MM-DD");
 
     var book = {
         name: name,
@@ -57,6 +57,21 @@ function addBook() {
     $.when(defer).then(function () {
         getCatalog(catalog);
         _clearFields();
+    })
+}
+
+function _getBook(id) {
+    var defer = $.Deferred();
+
+    $.ajax({
+        method: "GET",
+        url: "rest/api/libserv/get/"+id,
+        success: function () {
+            defer.resolve();
+        }
+    });
+    $.when(defer).then(function (_response) {
+        console.log(_response);
     })
 }
 
@@ -87,7 +102,7 @@ function getCatalog(isClose) {
                     .append('<td>' + item.name + '</td>')
                     .append('<td>' + item.athor + '</td>')
                     .append('<td>' + item.date + '</td>')
-                    .append('<td><a id="editBook" href='+item.id+'><p class="glyphicon glyphicon-pencil"></p></a></td>')
+                    .append('<td id="editBook"><a  href="#" id='+item.id+'><p class="glyphicon glyphicon-pencil"></p></a></td>')
                     .append('</tr>')
                 ;
             });
