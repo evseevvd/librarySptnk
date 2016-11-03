@@ -96,14 +96,25 @@ function _delBook(id, catalog) {
     })
 }
 
-function getCatalog(isClose) {
+function searchBook() {
 
-    var defer = $.Deferred();
+    var isClose = $('input[name=close]:checked').val();
+    var name = $('#searchName').val();
+
     var criteria = {
+        name: name,
         close: isClose
     };
 
-    var tbody = $('#books > tbody');
+    _searchService(criteria);
+}
+
+function getCatalog(isClose) {
+
+
+    var criteria = {
+        close: isClose
+    };
 
     var close = isClose && isClose != "false";
 
@@ -115,56 +126,69 @@ function getCatalog(isClose) {
         $('#openCatalog').addClass('active');
     }
 
+    _searchService(criteria);
+}
+
+function _searchService(criteria) {
+    var defer = $.Deferred();
+
     $.ajax({
-            method: 'POST',
-            url:'rest/api/libserv/search',
-            data: JSON.stringify(criteria),
-            success: function (response) {
-                defer.resolve(response);
-            }
-        });
+        method: 'POST',
+        url:'rest/api/libserv/search',
+        data: JSON.stringify(criteria),
+        success: function (response) {
+            defer.resolve(response);
+        }
+    });
 
     $.when(defer).then(function(data) {
-        tbody.empty();
-
-        if (data.books.length > 0) {
-
-            data.books.forEach(function (item, i) {
-                var index = i+1;
-
-                var row = $('<tr/>');
-
-                var editBtn = $('<a/>');
-                editBtn.addClass('glyphicon');
-                editBtn.addClass('glyphicon-pencil');
-                editBtn.addClass('edit-btn');
-                editBtn.addClass('margin-5');
-                editBtn.click(function () {
-                    _getBook(item.id);
-                });
-
-                var delBtn = $('<a/>');
-                delBtn.addClass('glyphicon');
-                delBtn.addClass('glyphicon-remove');
-                delBtn.addClass('del-btn');
-                delBtn.addClass('margin-5');
-                delBtn.click(function () {
-                    _delBook(item.id, item.close);
-                });
-
-                var btnRow = $('<td/>');
-
-                btnRow.append(editBtn).append(delBtn);
-
-                row.append( $('<td/>').text(index))
-                    .append($('<td/>').text(item.name))
-                    .append($('<td/>').text(item.athor))
-                    .append($('<td/>').text(item.date))
-                    .append(btnRow);
-                tbody.append(row);
-            });
-        }
-
+        _renderTable(data.books);
     });
+}
+
+function _renderTable(books) {
+
+    var tbody = $('#books > tbody');
+    //перед рендерингом отчистим.
+    tbody.empty();
+
+    if (books && books.length > 0) {
+        books.forEach(function (item, i) {
+            var index = i + 1;
+
+            var row = $('<tr/>');
+
+            var editBtn = $('<a/>');
+            editBtn.addClass('glyphicon');
+            editBtn.addClass('glyphicon-pencil');
+            editBtn.addClass('edit-btn');
+            editBtn.addClass('margin-5');
+            editBtn.click(function () {
+                _getBook(item.id);
+            });
+
+            var delBtn = $('<a/>');
+            delBtn.addClass('glyphicon');
+            delBtn.addClass('glyphicon-remove');
+            delBtn.addClass('del-btn');
+            delBtn.addClass('margin-5');
+            delBtn.click(function () {
+                _delBook(item.id, item.close);
+            });
+
+            var btnRow = $('<td/>');
+
+            btnRow.append(editBtn).append(delBtn);
+
+            row.append($('<td/>').text(index))
+                .append($('<td/>').text(item.name))
+                .append($('<td/>').text(item.athor))
+                .append($('<td/>').text(item.date))
+                .append(btnRow);
+            tbody.append(row);
+        });
+    } else {
+        tbody.append($('<tr/>').text("Результаты поиска отсутствуют..."));
+    }
 }
 
