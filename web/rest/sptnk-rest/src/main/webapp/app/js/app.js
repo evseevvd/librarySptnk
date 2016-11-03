@@ -13,6 +13,12 @@ $(function(){
         $('#closeCatalog').click(function () {
             getCatalog(true);
         });
+        $('#editBook').ready(function () {
+            $(this).click(function () {
+                console.log('Щелк редактировать');
+            });
+        });
+
         getCatalog(false);
     });
 });
@@ -72,17 +78,20 @@ function getCatalog(isClose) {
 
     $.when(defer).then(function(data) {
         $('#books > tbody').empty();
-        data.books.forEach(function (item, i) {
-            $('#books > tbody')
-                .append('<tr>')
-                .append('<td>'+i+'</td>')
-                .append('<td>'+item.name+'</td>')
-                .append('<td>'+item.athor+'</td>')
-                .append('<td>'+item.date+'</td>')
-                .append('<td><p id="editBook" class="glyphicon glyphicon-pencil"></p></td>')
-                .append('</tr>')
-            ;
-        });
+        if (data.books.length > 0) {
+            data.books.forEach(function (item, i) {
+                var index = i+1;
+                $('#books > tbody')
+                    .append('<tr>')
+                    .append('<td>' + index + '</td>')
+                    .append('<td>' + item.name + '</td>')
+                    .append('<td>' + item.athor + '</td>')
+                    .append('<td>' + item.date + '</td>')
+                    .append('<td><a id="editBook" href='+item.id+'><p class="glyphicon glyphicon-pencil"></p></a></td>')
+                    .append('</tr>')
+                ;
+            });
+        }
     });
 }
 
